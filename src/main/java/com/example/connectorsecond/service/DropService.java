@@ -61,6 +61,15 @@ public class DropService {
     }
 
 
+    public boolean deleteFolder(String folderPath){
+        try {
+            handleDropboxAction(() -> client.files().deleteV2(folderPath), String.format("Error deleting folder"));
+            return true;
+        }catch (Exception e){
+            return false;
+        }
+    }
+
 
     // NEED TO FIGURE OUT
     private <T> T handleDropboxAction(DropboxActionResolver<T> action, String exceptionMessage) {

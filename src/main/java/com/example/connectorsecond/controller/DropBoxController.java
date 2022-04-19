@@ -6,10 +6,7 @@ import com.dropbox.core.v2.files.FolderMetadata;
 import com.dropbox.core.v2.files.ListFolderResult;
 import com.example.connectorsecond.service.DropService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class DropBoxController {
@@ -33,11 +30,16 @@ public class DropBoxController {
 
     @GetMapping("/account/folder/{title}")
     public FolderMetadata getFolderDetails(@PathVariable String title) throws DbxException {
-        return dropService.getFolderDetails("/newFolder/" + title);
+        return dropService.getFolderDetails("/" + title);
     }
 
     @GetMapping("/account/folders/{start}")
     public ListFolderResult listFolder(@PathVariable String start) throws DbxException {
         return dropService.listFolder("/" + start, true, 10);
+    }
+
+    @DeleteMapping("/account/delete/folder/{title}")
+    public boolean deleteFolder(@PathVariable String title) throws DbxException {
+        return dropService.deleteFolder("/" + title);
     }
 }
